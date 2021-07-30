@@ -1,0 +1,107 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "python task manager",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "HelloWorldIntent",
+          "slots": [],
+          "samples": [
+            "hello",
+            "how are you",
+            "say hi world",
+            "say hi",
+            "hi",
+            "say hello world",
+            "say hello"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "ShowTasksIntent",
+          "slots": [],
+          "samples": [
+            "show my tasks",
+            "what are my tasks",
+            "tell me what my tasks are",
+            "show tasks"
+          ]
+        },
+        {
+          "name": "CreateTaskIntent",
+          "slots": [
+            {
+              "name": "task_name",
+              "type": "task_name"
+            }
+          ],
+          "samples": [
+            "Make task {task_name}",
+            "Add task {task_name}",
+            "Create task {task_name}"
+          ]
+        },
+        {
+          "name": "CompleteTaskIntent",
+          "slots": [
+            {
+              "name": "task_name",
+              "type": "task_name"
+            }
+          ],
+          "samples": [
+            "Finish task {task_name}",
+            "Complete task {task_name}"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "value": "cleaning"
+              }
+            },
+            {
+              "name": {
+                "value": "jogging"
+              }
+            },
+            {
+              "name": {
+                "value": "working"
+              }
+            },
+            {
+              "name": {
+                "value": "cooking"
+              }
+            }
+          ],
+          "name": "task_name"
+        }
+      ]
+    }
+  },
+  "version": "5"
+}
