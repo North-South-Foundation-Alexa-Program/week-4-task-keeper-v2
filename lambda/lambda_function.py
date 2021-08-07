@@ -69,19 +69,21 @@ class ShowTasksIntentHandler(AbstractRequestHandler):
         
         task_list = handler_input.attributes_manager.persistent_attributes.get("tasks", list())
         
-        task_text = ""
+        task_phrases = []
         for task_num, task in enumerate(task_list):
-            if (task_num == len(task_list)-1 and task_num > 0):
-                task_text = task_text + " and "
-            task_text = task_text + 'task #{} is {}'.format(task_num+1, task)
+            task_phrases.append(f'task #{task_num+1} is {task}')
+        
+        task_text = ""
+        if len(task_phrases) == 1:
+            task_text = task_phrases[0]
+        elif len(task_phrases) >= 1:
+            task_text = ", ".join(task_phrases[:len(task_phrases)-1]) + " and " + task_phrases[-1]
 
         if task_text == "":
             speak_output = "Your task list is empty - please add something to it."
-        else:    
-            if len(task_list)==1:
-                speak_output = "You have {} task in your tasks list: {}".format(len(task_list), task_text)
-            else:
-                speak_output = "You have {} tasks in your tasks list: {}".format(len(task_list), task_text)
+        else:
+            s_char = "" if len(task_list) == 1 else "s"
+            speak_output = f"You have {len(task_list)} task{s_char} in your tasks list: {task_text}"
 
         return (
             handler_input.response_builder
@@ -110,11 +112,8 @@ class CreateTaskIntentHandler(AbstractRequestHandler):
             attributes_manager.persistent_attributes = {'tasks' : task_list }
             attributes_manager.save_persistent_attributes()
             
-        if len(task_list)==1:
-            speak_output = speak_output + " you have {} outstanding task. ".format(len(task_list))
-        else:
-            speak_output = speak_output + " you have {} outstanding tasks. ".format(len(task_list))
-        
+        s_char = "" if len(task_list) == 1 else "s"
+        speak_output = f"{speak_output} you have {len(task_list)} outstanding task{s_char}. "
         
         return (
             handler_input.response_builder
@@ -144,10 +143,8 @@ class CompleteTaskIntentHandler(AbstractRequestHandler):
         else:
             speak_output = "I cant find the task named {} in your list of tasks, ask to list your tasks or try again,".format(task_name)
 
-        if len(task_list)==1:
-            speak_output = speak_output + " you have {} outstanding task. ".format(len(task_list))
-        else:
-            speak_output = speak_output + " you have {} outstanding tasks. ".format(len(task_list))
+        s_char = "" if len(task_list) == 1 else "s"
+        speak_output = f"{speak_output} you have {len(task_list)} outstanding task{s_char}"
 
         return (
             handler_input.response_builder
