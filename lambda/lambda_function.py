@@ -99,7 +99,8 @@ class CreateTaskIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         
-        task_name = ask_utils.request_util.get_slot(handler_input, "task_name").value
+        # task_name = ask_utils.request_util.get_slot(handler_input, "task_name").value
+        task_name = handler_input.request_envelope.request.intent.slots["task_name"].value
 
         task_list = handler_input.attributes_manager.persistent_attributes.get("tasks", list())
         
@@ -130,7 +131,8 @@ class CompleteTaskIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         
-        task_name = ask_utils.request_util.get_slot(handler_input, "task_name").value
+        # task_name = ask_utils.request_util.get_slot(handler_input, "task_name").value
+        task_name = handler_input.request_envelope.request.intent.slots["task_name"].value
         
         task_list = handler_input.attributes_manager.persistent_attributes.get("tasks", list())        
         
